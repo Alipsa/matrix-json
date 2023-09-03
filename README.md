@@ -143,6 +143,7 @@ def table = importer.parse('''[
           "start_date": "2014-11-15"
         }
     ]''').convert([int, String, Number, LocalDate])
+// Note: there are other conversion methods that can handle more complex scenarios
 
 // the above will give you exactly this:
 Matrix empData = Matrix.create(
