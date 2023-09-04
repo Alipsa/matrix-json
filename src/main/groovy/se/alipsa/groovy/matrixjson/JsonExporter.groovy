@@ -3,6 +3,7 @@ package se.alipsa.groovy.matrixjson
 import se.alipsa.groovy.matrix.Grid
 import se.alipsa.groovy.matrix.Matrix
 import se.alipsa.groovy.matrix.ValueConverter
+import groovy.json.*
 
 class JsonExporter {
 
@@ -16,7 +17,7 @@ class JsonExporter {
         this.table = table
     }
 
-    String toJson(Map<String, Closure> columnFormatters = [:]) {
+    String toJson(Map<String, Closure> columnFormatters = [:], boolean indent = false) {
         def nCol = table.columnCount()
         def colNames = table.columnNames()
         def rows = []
@@ -36,6 +37,11 @@ class JsonExporter {
             }
             rows << "{${rowList.join(',')}}"
         }
-        return "[${rows.join(',')}]"
+        def json = "[${rows.join(',')}]"
+        if (indent) {
+            return JsonOutput.prettyPrint(json)
+        } else {
+            return json
+        }
     }
 }
