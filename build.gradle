@@ -4,7 +4,7 @@ plugins {
   id 'signing'
   id 'maven-publish'
   id 'io.github.gradle-nexus.publish-plugin' version '1.3.0'
-  id "com.github.ben-manes.versions" version "0.46.0"
+  id "com.github.ben-manes.versions" version "0.48.0"
 }
 
 group 'se.alipsa.groovy'
@@ -19,23 +19,26 @@ java {
 }
 
 repositories {
+  if (version.contains('SNAPSHOT')) {
+    mavenLocal()
+  }
   mavenCentral()
-  mavenLocal()
 }
 
 dependencies {
-  def groovyVersion = '4.0.14'
+  def groovyVersion = '4.0.15'
   def groovy = "org.apache.groovy:groovy:$groovyVersion"
-  compileOnly 'se.alipsa.groovy:matrix:1.1.3-SNAPSHOT'
+  def matrixVersion = "1.1.3-SNAPSHOT"
+  compileOnly "se.alipsa.groovy:matrix:$matrixVersion"
   compileOnly groovy
   compileOnly "org.apache.groovy:groovy-json:$groovyVersion"
 
   testImplementation groovy
   testImplementation "org.apache.groovy:groovy-json:$groovyVersion"
-  testImplementation 'se.alipsa.groovy:matrix:1.1.3-SNAPSHOT'
+  testImplementation "se.alipsa.groovy:matrix:$matrixVersion"
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
-  testImplementation 'se.alipsa.groovy:matrix-datasets:1.0.2'
+  testImplementation 'se.alipsa.groovy:matrix-datasets:1.0.3-SNAPSHOT'
 }
 
 test {
