@@ -41,6 +41,6 @@ class JsonImporterTest {
         [int, String, Number, LocalDate]
     )
 
-    assertEquals(empData.rows(), table.rows(), empData.diff(table))
+    assertEquals(empData, table, empData.diff(table))
   }
 }
